@@ -108,8 +108,8 @@ def stages_between(prev, cur):
 
 def caption(prev, cur):
     if prev is None:
-        return f"📍 Đang ở màn **{cur[0]}-{cur[1]}**"
-    return f"✅ Team vượt các màn: {', '.join(stages_between(prev, cur))}"
+        return f"{cur[0]}-{cur[1]}"
+    return ", ".join(stages_between(prev, cur))
 
 
 # ---------- Discord ----------
