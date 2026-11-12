@@ -1,0 +1,28 @@
+name: Clash map bot
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # khoang 10 phut chay 1 lan
+  workflow_dispatch:          # cho phep bam chay tay
+
+concurrency:
+  group: clash-map-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python bot.py
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GDRIVE_KEY: ${{ secrets.GDRIVE_KEY }}
+          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
+          DISCORD_THREAD: ${{ secrets.DISCORD_THREAD }}
